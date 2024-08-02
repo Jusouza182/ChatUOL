@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bate Papo Uol</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <div class="sidebar esconder">
+        <div class="background"></div>
+        <div class="participantes">
+            <h1 class="contato">Escolha um contato para enviar a mensagem:</h1>
+            <div class="lista-participantes"></div>
+            <h1 class="visibilidade">Escolha a visibilidade</h1>
+            <div class="open">
+                <ion-icon name="lock-open-outline"></ion-icon>
+                <p>Público</p>
+            </div>
+            <div class="closed">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <p>Reservadamente</p>
+            </div>
+        </div>
+    </div>
+
+<div class="cabecalho">
+    <img src="/chatUol/imgs/logo.png" alt="logo UOL">
+    <ion-icon name="people" class="toggle-sidebar"></ion-icon>
+</div>
+<div class="container-chat"></div>
+<div class="rodape">
+    <input type="text" placeholder="Escreva aqui...">
+    <ion-icon name="send-outline"></ion-icon>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
