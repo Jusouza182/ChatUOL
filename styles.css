@@ -40,9 +40,15 @@ ion-icon{
     background-color: #f3f3f3;
     height: 507px;
     width: 100%;
+    overflow-y: auto;
+    display: flex;
+  flex-direction: column;
 }
-
-.rodape > ion-icon{
+.rodape > button{
+    border: none;
+    background-color: #FFFFFF;
+}
+.rodape > button > ion-icon{
     font-size: 26px;
     margin-right: 15px;
 }
@@ -118,3 +124,24 @@ ion-icon{
 .esconder{
     display: none;
 }
+
+.mensagem {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .mensagem:last-child {
+    border-bottom: none;
+  }
+  
+  .status-message {
+    background-color: #e0e0e0;
+  }
+  
+  .private-message {
+    background-color: #ffdddd;
+  }
+  
+  .normal-message {
+    background-color: #ffffff;
+  }
