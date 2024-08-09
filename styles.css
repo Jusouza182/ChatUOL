@@ -165,3 +165,27 @@ ion-icon{
    
   }
 
+
+  .selected::after {
+    content: '✔'; /* Checkmark */
+    font-size: 18px;
+    color: green;
+    margin-left: 10px;
+  }
+
+  .visibility-options {
+    list-style-type: none;
+    margin: 5%;
+  }
+
+  .visibility-options li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer; /* Adiciona um cursor de pointer ao passar sobre o item */
+  }
+
+  .visibility-options ion-icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }

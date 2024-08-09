@@ -170,39 +170,58 @@ function obterParticipantes() {
     });
 }
 
-/* for(let i=0; participantes.length; i++){
-  const listaParticipantes = document.querySelector(".lista-participantes");
-
-}*/
-
 // função para atualizar a lista no sidebar
 
 function atualizarListaParticipantes(participantes) {
-  const listaParticipantes = document.querySelector(".lista-participantes");
-  const itemFixo = listaParticipantes.querySelector(".item-fixo");
-  const itens = Array.from(
-    listaParticipantes.querySelectorAll("li:not(.item-fixo)")
-  );
-  itens.forEach((item) => item.remove());
+  const listaParticipantes = document.querySelector('.lista-participantes');
+  const itemFixo = listaParticipantes.querySelector('.item-fixo');
+  
+  const itens = Array.from(listaParticipantes.querySelectorAll('li:not(.item-fixo)'));
+  itens.forEach(item => item.remove());
 
-  participantes.forEach((participante) => {
-    console.log("Participante:", participante);
 
-    const item = document.createElement("li");
+  participantes.forEach(participante => {
+    const item = document.createElement('li');
 
-    const icon = document.createElement("ion-icon");
-    icon.setAttribute("name", "person");
+    const icon = document.createElement('ion-icon');
+    icon.setAttribute('name', 'person');
+    icon.style.fontSize = '24px';
+    icon.style.marginRight = '10px';
 
-    const name = document.createElement("span");
-    name.textContent = participante.name || "Nome não disponível";
-    console.log("Nome do participante:", name.textContent);
+    const name = document.createElement('span');
+    name.textContent = participante.name || 'Nome não disponível';
 
     item.appendChild(icon);
     item.appendChild(name);
 
+    item.addEventListener('click', selecionarParticipante);
+
     listaParticipantes.appendChild(item);
   });
+
+  itemFixo.addEventListener('click', selecionarParticipante);
 }
+
+
+function selecionarOpcao(event) {
+  const options = document.querySelectorAll('.visibility-options li');
+  options.forEach(option => option.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+}
+document.querySelectorAll('.visibility-options li').forEach(item => {
+  item.addEventListener('click', selecionarOpcao);
+});
+
+
+function selecionarParticipante(event) {
+  const participantes = document.querySelectorAll('.lista-participantes li');
+  participantes.forEach(participante => participante.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+}
+
+document.querySelectorAll('.visibility-options li').forEach(item => {
+  item.addEventListener('click', selecionarOpcao);
+});
 
 obterParticipantes();
 setInterval(obterParticipantes, 10000);
