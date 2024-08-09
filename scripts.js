@@ -41,8 +41,8 @@ function solicitarNome() {
 function enviarMensagem() {
   const text = document.querySelector(".text").value;
   const from = nome;
-  const type = "message";
-  const to = "Todos";
+  const type = obterTipoVisibilidadeSelecionado();
+  const to = obterDestinatarioSelecionado();
 
   console.log("Mensagem capturada:", text);
 
@@ -65,6 +65,7 @@ function enviarMensagem() {
       console.log("Mensagem enviada com sucesso!", response.data);
       document.querySelector(".text").value = "";
       receberMensagens();
+      obterTipoVisibilidadeSelecionado()
     })
     .catch((error) => {
       console.error(
@@ -207,20 +208,82 @@ function selecionarOpcao(event) {
   const options = document.querySelectorAll('.visibility-options li');
   options.forEach(option => option.classList.remove('selected'));
   event.currentTarget.classList.add('selected');
+  atualizarFraseDestinatario();
 }
-document.querySelectorAll('.visibility-options li').forEach(item => {
-  item.addEventListener('click', selecionarOpcao);
-});
-
 
 function selecionarParticipante(event) {
   const participantes = document.querySelectorAll('.lista-participantes li');
   participantes.forEach(participante => participante.classList.remove('selected'));
   event.currentTarget.classList.add('selected');
+
+
+  console.log("Participante selecionado:", event.currentTarget.querySelector('span').textContent);
+
+  atualizarFraseDestinatario();
 }
+
+
+function atualizarFraseDestinatario() {
+  const participanteSelecionado = document.querySelector('.lista-participantes li.selected span');
+  const opcaoSelecionada = document.querySelector('.visibility-options li.selected span');
+
+  let destinatario = 'Todos participantes';
+  if (participanteSelecionado) {
+    destinatario = participanteSelecionado.textContent;
+  }
+
+  let visibilidade = 'público'; 
+  if (opcaoSelecionada) {
+    visibilidade = opcaoSelecionada.textContent.toLowerCase();
+    visibilidade = visibilidade === 'reservadamente' ? 'privado' : 'público';
+  }
+
+  const destinatarioElement = document.getElementById('destinatario');
+  destinatarioElement.textContent = `Enviado para ${destinatario} (${visibilidade})`;
+
+  console.log("Frase do destinatário:", destinatarioElement.textContent);
+  
+  if (visibilidade === 'message') {
+    destinatarioElement.classList.add('private-message');
+  } else {
+    destinatarioElement.classList.remove('private-message');
+  }
+}
+
+  function obterDestinatarioSelecionado() {
+    const participanteSelecionado = document.querySelector('.lista-participantes li.selected span');
+    const destinatario = participanteSelecionado ? participanteSelecionado.textContent : 'Todos';
+    
+    console.log("Destinatário selecionado:", destinatario);
+  
+    return destinatario;
+  }
+  
+
+  function obterTipoVisibilidadeSelecionado() {
+    const opcaoSelecionada = document.querySelector('.visibility-options li.selected span');
+    let tipoVisibilidade = 'message';
+  
+    if (opcaoSelecionada) {
+      const visibilidade = opcaoSelecionada.textContent.toLowerCase();
+  
+    
+      tipoVisibilidade = visibilidade === 'reservadamente' ? 'private_message' : 'message';
+    }
+  
+   
+    console.log("Tipo de visibilidade selecionado:", tipoVisibilidade);
+  
+    return tipoVisibilidade;
+  }
+  
 
 document.querySelectorAll('.visibility-options li').forEach(item => {
   item.addEventListener('click', selecionarOpcao);
+});
+
+document.querySelectorAll('.lista-participantes li').forEach(item => {
+  item.addEventListener('click', selecionarParticipante);
 });
 
 obterParticipantes();
