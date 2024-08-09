@@ -31,6 +31,7 @@ function solicitarNome() {
         receberMensagens(); // carrega as mensagens ao iniciar conexão
         setInterval(receberMensagens, 3000); // atualiza as mensagens a cada 3seg
         setInterval(manterPresenca, 5000); // atualiza a presença a cada seg, para não "quicar" a pessoa da sala
+        
     })
     .catch((error) => {
       alert("Nome já está em uso");
@@ -129,4 +130,56 @@ function manterPresenca() {
     });
 }
 
+
+// Função obter a lista de participantes 
+
+function obterParticipantes(){
+  axios.get("https://mock-api.driven.com.br/api/v6/uol/participants/df10e74f-e839-4a24-8fd0-08cc129c0608")
+  .then( response => {
+    console.log("cheguei aqui", response.data);
+    atualizarListaParticipantes(response.data)
+  })
+  .catch(error => {
+    console.error("Erro ao obter participantes:", error.response ? error.response.data : error.message);
+  })
+}
+
+/* for(let i=0; participantes.length; i++){
+  const listaParticipantes = document.querySelector(".lista-participantes");
+
+}*/
+
+// função para atualizar a lista no sidebar 
+
+function atualizarListaParticipantes(participantes) {
+  const listaParticipantes = document.querySelector('.lista-participantes');
+  listaParticipantes.innerHTML = '';
+
+
+  participantes.forEach(participante => {
+    console.log("Participante:", participante); 
+
+
+    const item = document.createElement('li');
+
+    const icon = document.createElement('ion-icon');
+    icon.setAttribute('name', 'person');
+
+  
+    icon.style.fontSize = '24px';
+    icon.style.marginRight = '10px';
+
+  
+    const name = document.createElement('span');
+    name.textContent = participante.name || 'Nome não disponível';
+    console.log("Nome do participante:", name.textContent);
+
+    item.appendChild(icon);
+    item.appendChild(name);
+
+    listaParticipantes.appendChild(item);
+  });
+}
+
+obterParticipantes();
 solicitarNome();

@@ -145,3 +145,16 @@ ion-icon{
   .normal-message {
     background-color: #ffffff;
   }
+
+  .lista-participantes {
+    margin:5% ;
+  
+  }
+
+  li{
+    display: flex;
+    align-items: center; 
+    margin-bottom: 5px;
+    list-style-type: none;
+   
+  }
